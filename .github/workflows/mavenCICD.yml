@@ -46,6 +46,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: dblucas-ops/${{ env.CALLER_REPO }}
+      - name: cache Dependancies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: src
+          key: dave-key-define-this
       - name: Build with Maven
         id: buildId2
         run: |
