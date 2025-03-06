@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initialization
-        id: vars
+        id: initId
         run: |
           echo "Initialization and Configuration:"
           echo "$(date +'%Y-%m-%d %H:%M:%S')"
@@ -33,6 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: CODEQL Running
+        id: codeqlId
         run: |
           echo "CODEQL Code Scan Running: Open 'Push on main' job output"
           echo "$(date +'%Y-%m-%d %H:%M:%S')"
@@ -41,13 +42,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        id: buildId1
         uses: actions/checkout@v4
         with:
           repository: dblucas-ops/${{ env.CALLER_REPO }}
       - name: Build with Maven
+        id: buildId2
         run: |
           echo "Build with Maven"
           mvn -file pom.xml install -Denv.build.num=1234 -Denv.change.set.num=1234frtt
+      - name: Interrogate Build Result
+        if: ${{ steps.buildId2.outcome == 'failure' }}
+        run: |
+          echo "Interrogate Build Result..."
   post_action:
     needs: build
     runs-on: ubuntu-latest
