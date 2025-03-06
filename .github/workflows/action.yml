@@ -1,9 +1,0 @@
-name: 'Custom Action'
-description: 'First attempt at a custom action'
-runs:
-  using: 'composite'
-  steps:
-    - name: Init Custom Action
-      id: customaction
-      run: pwd 
-      shell: bash
