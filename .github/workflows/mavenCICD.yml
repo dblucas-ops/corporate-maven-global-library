@@ -51,10 +51,17 @@ jobs:
         run: |
           echo "Build with Maven"
           mvn -file pom.xml install -Denv.build.num=1234 -Denv.change.set.num=1234frtt
-      - name: Interrogate Build Result
-        if: ${{ steps.buildId2.outcome == 'failure' }}
+      - name: Interrogate Build Result1
+        if: success()
         run: |
-          echo "Interrogate Build Result..."
+          echo "success"
+          echo "success()"
+          echo "Interrogate Build Result1..."
+      - name: Interrogate Build Result2
+        run: |
+          echo "steps.buildId2.outcome"
+          echo "${{steps.buildId2.outcome}}"
+          echo "Interrogate Build Result2..."
   post_action:
     needs: build
     runs-on: ubuntu-latest
