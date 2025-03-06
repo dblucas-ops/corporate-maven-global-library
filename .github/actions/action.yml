@@ -1,9 +1,15 @@
 name: 'Custom Action'
 description: 'First attempt at a custom action'
+inputs:
+  caching:
+    description: 'Whether to cache artifacts'
+    required: true
+    default: 'true'
 runs:
   using: 'composite'
   steps:
     - name: Init Custom Action
+      if: inputs.caching == 'true'
       id: customaction
-      run: pwd 
+      run: pwd
       shell: bash
