@@ -44,6 +44,8 @@ jobs:
         version: [1, 2]
     runs-on: ubuntu-latest
     steps:
+      - name: Call a Custom Action
+        uses: ./.github/actions/
       - name: Checkout
         id: buildId1
         uses: actions/checkout@v4
