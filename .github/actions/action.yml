@@ -2,14 +2,20 @@ name: 'Custom Action'
 description: 'First attempt at a custom action'
 inputs:
   caching:
-    description: 'Whether to cache artifacts'
+    description: 'Whether to cache artifacts or not.'
     required: true
     default: 'true'
+outputs:
+  used-cache:
+    description: 'Whether cache was used.'
+    value: ${{ steps.customaction}}"
 runs:
   using: 'composite'
   steps:
     - name: Init Custom Action
       if: inputs.caching == 'true'
       id: customaction
-      run: pwd
+      run: |
+        pwd
+        echo "::set-output name=cache::'${{ inputs.caching }}'"
       shell: bash
