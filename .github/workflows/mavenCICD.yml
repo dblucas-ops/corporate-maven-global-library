@@ -45,13 +45,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call a Custom Action
+        id: cache-deps
         uses: ./.github/actions/
+        with:
+          caching: 'false'
+      - name: Output Information
+        run: echo "Cache Used? ${{ steps.cache-deps.outputs.used-cache }}"
       - name: Checkout
         id: buildId1
         uses: actions/checkout@v4
         with:
           repository: dblucas-ops/${{ env.CALLER_REPO }}
-      - name: cache Dependancies
+      - name: Cache Dependancies
         continue-on-error: true
         id: cache
         uses: actions/cache@v3
