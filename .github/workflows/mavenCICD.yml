@@ -58,6 +58,7 @@ jobs:
           echo "success()"
           echo "Interrogate Build Result1..."
       - name: Interrogate Build Result2
+        if: ${{steps.buildId2.outcome == 'success'}}
         run: |
           echo "steps.buildId2.outcome"
           echo "${{steps.buildId2.outcome}}"
